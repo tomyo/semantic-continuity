@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WPM - Example</title>
+
+    <link rel="stylesheet" href="./components/site-header/site-header.css" />
+    <link rel="stylesheet" href="./components/site-footer/site-footer.css" />
+
+    <style>
+      body {
+        margin: 0;
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      main {
+        padding: 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+        flex-grow: 1;
+      }
+      /* Simple styling for the structural components */
+      site-header,
+      site-footer {
+        display: block; /* Custom tags are inline by default */
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Structural Tag: <site-header> -->
+    <site-header>
+      <header part="container">
+        <div part="logo">
+          <a href="/">Progressive Materialization</a>
+        </div>
+        <nav part="nav">
+          <a href="/docs">Docs</a>
+          <a href="/about">About</a>
+          <button part="mobile-menu-toggle" aria-expanded="false" hidden>
+            Menu
+          </button>
+        </nav>
+      </header>
+    </site-header>
+
+    <main>
+      <article-preview>
+        <article part="container">
+          <header part="header">
+            <h1 part="title">Welcome to the Native Web</h1>
+          </header>
+          
+          <div part="content">
+            <!-- Explicit composition boundary (Slot) -->
+            <!-- The materializer injects children into slots rather than opaque templates -->
+            <slot name="body">
+              <p>
+                This page demonstrates <strong>Web Progressive Materialization (WPM)</strong>.
+              </p>
+              <p>
+                Notice how we use explicit <code>slot</code> elements as composition boundaries and <code>part="..."</code> as our semantic contract for CSS and JS.
+              </p>
+              <p>
+                This ensures structural components remain completely stateless DOM transformers, pushing UI logic onto native event delegation and HTML attributes.
+              </p>
+            </slot>
+          </div>
+        </article>
+      </article-preview>
+    </main>
+
+    <!-- Structural Tag: <site-footer> -->
+    <site-footer>
+      <footer part="container">
+        <div part="content">
+          <p>&copy; 2026 Web Progressive Materialization.</p>
+          <div part="social-links">
+            <a href="#">GitHub</a>
+            <a href="#">Twitter</a>
+          </div>
+        </div>
+        <button part="back-to-top" hidden>↑ Back to top</button>
+      </footer>
+    </site-footer>
+
+    <!-- Enhancement Layer (Runtime Phase) -->
+    <!-- URLs here are resolved into final coherent document semantics by the materializer -->
+    <script type="module">
+      import { enhanceSiteHeader } from "./components/site-header/enhance.js";
+      import { enhanceSiteFooter } from "./components/site-footer/enhance.js";
+
+      // Apply optional behaviors to Enhanced Components
+      // Components use stateless event delegation inside
+      document.querySelectorAll("site-header").forEach(enhanceSiteHeader);
+      document.querySelectorAll("site-footer").forEach(enhanceSiteFooter);
+    </script>
+  </body>
+</html>

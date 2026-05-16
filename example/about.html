@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WPM - About & Custom Elements</title>
+
+    <link rel="stylesheet" href="./components/site-header/site-header.css" />
+    <link rel="stylesheet" href="./components/site-footer/site-footer.css" />
+    <link rel="stylesheet" href="./components/live-chat/live-chat.css" />
+
+    <style>
+      body {
+        margin: 0;
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      main {
+        padding: 2rem;
+        max-width: 800px;
+        margin: 0 auto;
+        flex-grow: 1;
+      }
+      site-header,
+      site-footer,
+      live-chat {
+        display: block; 
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Structural Tag: <site-header> -->
+    <site-header>
+      <header part="container">
+        <div part="logo">
+          <a href="/">Progressive Materialization</a>
+        </div>
+        <nav part="nav">
+          <a href="/index.html">Home</a>
+          <a href="/about.html">About</a>
+          <button part="mobile-menu-toggle" aria-expanded="false" hidden>
+            Menu
+          </button>
+        </nav>
+      </header>
+    </site-header>
+
+    <main>
+      <article-preview>
+        <article part="container">
+          <header part="header">
+            <h1 part="title">About Custom Elements in WPM</h1>
+          </header>
+          
+          <div part="content">
+            <slot name="body">
+              <p>
+                In the Web Progressive Materialization architecture, we distinguish between <strong>Enhanced Components</strong> and <strong>Autonomous Components</strong>.
+              </p>
+              <ul>
+                <li>
+                  <strong>Enhanced Components</strong> (`enhance.js`): Provide progressive behavior on top of materialized HTML. They use stateless event delegation and do not require registering a Custom Element.
+                </li>
+                <li>
+                  <strong>Autonomous Components</strong> (`component-name.js`): Fully encapsulate their logic and markup. They use `customElements.define` because they generate or manage runtime-owned UI.
+                </li>
+              </ul>
+              <p>
+                Look at the bottom right corner of this page. The <code>&lt;live-chat&gt;</code> widget is an example of an Autonomous Component.
+              </p>
+            </slot>
+          </div>
+        </article>
+      </article-preview>
+    </main>
+
+    <!-- Structural Tag: <site-footer> -->
+    <site-footer>
+      <footer part="container">
+        <div part="content">
+          <p>&copy; 2026 Web Progressive Materialization.</p>
+          <div part="social-links">
+            <a href="#">GitHub</a>
+            <a href="#">Twitter</a>
+          </div>
+        </div>
+        <button part="back-to-top" hidden>↑ Back to top</button>
+      </footer>
+    </site-footer>
+
+    <!-- Autonomous Component: live-chat -->
+    <!-- The script automatically defines the web component upon import -->
+    <live-chat></live-chat>
+
+    <!-- Enhancement Layer (Runtime Phase) -->
+    <script type="module">
+      import { enhanceSiteHeader } from "./components/site-header/enhance.js";
+      import { enhanceSiteFooter } from "./components/site-footer/enhance.js";
+      
+      // Load our Autonomous Web Component
+      import "./components/live-chat/live-chat.js";
+
+      // Apply optional behaviors to Enhanced Components
+      document.querySelectorAll("site-header").forEach(enhanceSiteHeader);
+      document.querySelectorAll("site-footer").forEach(enhanceSiteFooter);
+    </script>
+  </body>
+</html>

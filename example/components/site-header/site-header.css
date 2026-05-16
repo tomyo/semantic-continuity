@@ -1,0 +1,36 @@
+/* 
+  Using Semantic Parts as the styling contract.
+  This works natively in Light DOM via attribute selectors, 
+  and bridges seamlessly if moved to Shadow DOM using ::part() 
+*/
+[part="container"] {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #ffffff;
+  border-bottom: 1px solid #eaeaea;
+}
+
+[part="nav"] {
+  display: flex;
+  gap: 1.5rem;
+}
+
+[part="container"] a {
+  text-decoration: none;
+  color: #333333;
+}
+
+[part="container"] a:hover {
+  text-decoration: underline;
+}
+
+[part="mobile-menu-toggle"][hidden] {
+  display: none;
+}
+
+/* Stateless component relying on HTML state for UI behavior */
+[part="nav"]:has([part="mobile-menu-toggle"][aria-expanded="true"]) {
+  flex-direction: column;
+}

@@ -1,0 +1,65 @@
+/* 
+  Styles for the Autonomous Web Component 
+  Works flawlessly in Light DOM using semantic part selection.
+*/
+live-chat {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+  z-index: 1000;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+[part="toggle-btn"] {
+  padding: 0.75rem 1.5rem;
+  background: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0, 112, 243, 0.3);
+  transition: transform 0.2s ease;
+}
+
+[part="toggle-btn"]:hover {
+  transform: scale(1.05);
+}
+
+[part="chat-window"] {
+  width: 300px;
+  height: 350px;
+  background: white;
+  border: 1px solid #eaeaea;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+[part="chat-window"][hidden] {
+  display: none;
+}
+
+[part="messages"] {
+  flex-grow: 1;
+  padding: 1rem;
+  background: #f9f9f9;
+  border-bottom: 1px solid #eaeaea;
+  overflow-y: auto;
+  font-size: 0.9rem;
+}
+
+[part="input"] {
+  padding: 1rem;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+  width: 100%;
+  box-sizing: border-box;
+}
