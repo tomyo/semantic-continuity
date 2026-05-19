@@ -38,7 +38,7 @@ Instead of focusing on syntax or bundle size, our operational tooling evaluates 
 - **Semantic Recoverability:** Do generated artifacts preserve enough meaning to recover intent?
 - **Progressive Materialization:** Does the system gain capability without losing coherence?
 
-_To see this in action, explore the [Semantic Evaluator](./.pi/skills/semantic-evaluator/SKILL.md) skill located in the analysis tooling._
+_To see this in action, explore the [Semantic Evaluator](./skills/semantic-evaluator/SKILL.md) skill located in the analysis tooling._
 
 ---
 

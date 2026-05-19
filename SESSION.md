@@ -1,30 +1,26 @@
-# Session Memory: Web Progressive Materialization (WPM)
+# Session Memory: Semantic Continuity for Legible Systems
 
 ## Project Overview
-**Web Progressive Materialization (WPM)** is a build-optional architecture for the native web, optimized for humans, LLMs, browsers, and search engines. It acts as a mental model and a set of web-native primitives rather than a framework.
+This repository explores the systems philosophy of **Semantic Continuity** and **Legible Systems**. It serves as an operational hub and research direction for building software that remains understandable, recoverable, and collaboratively evolvable after the cost collapse of creation.
 
-**Tagline:** *Toward a simpler, saner, more joyful web.*
+**Tagline:** *Preserving meaning under continuous transformation.*
 
 ## Core Philosophy & Key Decisions
-1. **HTML is the Primary Artifact:** The source of truth for a component is its `.html` file, not a JS runtime object or a templating string.
-2. **Build-Optional:** The website must work *before* the build step. Build steps are optimizations (concatenation, minification, SSR), not mandatory compilers.
-3. **Strict Symmetry:** Components are organized into self-contained directories with matching file names (e.g., `site-header.html`, `site-header.css`, `site-header.js`).
-4. **Component Categories:**
-   * **Structural:** Pure HTML. No JS required (e.g., `<article-preview>`). Expresses domain and intent.
-   * **Enhanced:** HTML-first + optional behavior. JS is an enhancement layer (e.g., `<site-header>`).
-   * **Autonomous:** Runtime-owned UI for heavy client interaction.
-5. **Semantic Parts (Structural Rendering Targets):** We use the `part="..."` attribute instead of opaque CSS classes or template DSL variables.
-   * **CSS:** Styled via `[part="..."]` (Light DOM) or `::part(...)` (Shadow DOM).
-   * **JS/DOM:** Targeted via `querySelector('[part="..."]')`.
-   * **Renderers:** Inject content into these explicit, standard semantic boundaries.
+1. **The Comprehension Bottleneck:** AI has made generating code cheap, but understanding it remains expensive. Optimization must shift from "developer velocity" to "constrained reasoning scope."
+2. **System Legibility:** The primary architectural goal. Systems must remain inspectable, locally inferable, and structurally understandable to distribute agency (so any agent, human or AI, can safely modify them).
+3. **Semantic Continuity:** The mechanism to achieve legibility. Meaning must survive across source, transformations, execution layers, and time. 
+4. **Architectural Derivations:** Properties like behavioral locality, progressive enhancement, explicit structure, and reversible transformations are *derived consequences* of trying to preserve Reasoning Scope, rather than aesthetic preferences.
+5. **The Web as a Proving Ground:** The web ("The Material Web") is used as the primary operational substrate because it accidentally evolved many continuity-preserving properties (inspectable DOM, progressive capability layers, semantic structure).
 
 ## Current State
-* Initialized the repository folder: `web-progressive-materialization`.
-* Created the foundational manifesto in `README.md`.
-* Created an example symmetric structure (`example/components/site-header`, `example/components/site-footer`) using `part` attributes.
-* Created an entry point (`example/index.html`) demonstrating native browser materialization without a build step.
+* **Pivot Complete:** The project has successfully evolved from a "frontend architecture methodology (WPM)" into a generalized "Systems Theory for the AI Era."
+* **Documentation Overhauled:**
+  * Created foundational essays: `/philosophy/software-after-the-cost-collapse.md` and `/philosophy/the-legibility-hypothesis.md`.
+  * Restructured `README.md` to serve as an entry hub instead of a manifesto.
+* **Semantic Evaluator Skill Updated:** The AI `semantic-evaluator` (now in `/skills/semantic-evaluator/SKILL.md`) has been aligned with the Legibility Hypothesis. It focuses on evaluating *Reasoning Scope*, *Systemic Entropy*, and *Agency Distribution* without auto-enforcing rules.
+* **Repository Architecture Setup:** Added structured directories for `/philosophy`, `/patterns`, `/analysis`, `/case-studies`, and `/experiments`.
 
 ## Next Steps / Open Threads
-* **Tooling & Scaffolding:** Create a template system to kickstart new projects dependency-free.
-* **Rendering Engine:** Implement the minimal rendering function (client-side or build-step) that maps data to `part` attributes without string interpolation.
-* **Formalize SSR / Build Step:** Show how a simple script can read the `.html` artifacts and construct the final output for production.
+* **Populate `/patterns`:** Create concrete technical examples that contrast high-entropy/illegible architecture with low-entropy/continuous architecture.
+* **Test the Semantic Evaluator:** Point the newly refined `semantic-evaluator` tool at sample codebase snippets to verify its operational value as an architectural critic.
+* **Case Studies:** Document real-world examples where systems collapsed due to semantic fragmentation, and where progressive materialization preserved intent.
