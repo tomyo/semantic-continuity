@@ -2,26 +2,26 @@
 
 A systems philosophy for building software that remains understandable, recoverable, and collaboratively evolvable across humans, AI agents, and time.
 
-Modern systems increasingly suffer from semantic entropy:
-- hidden transformations,
-- fragmented abstractions,
-- opaque orchestration,
-- and growing distance between source, behavior, and output.
+## The Core Thesis
 
-AI accelerates this problem. It can generate complexity faster than humans can stabilize meaning.
+**Observation:** Complexity generation is accelerating faster than comprehension. Historically, writing code was expensive, naturally constraining system complexity. Today, AI and automation make generation, mutation, and recomposition cheap. But *understanding* remains expensive.
 
-Semantic Continuity proposes a different direction:
-systems should preserve continuity between structure, behavior, representation, and evolution.
+**Problem:** As systems evolve rapidly, they drift toward semantic fragmentation, hidden coupling, and opaque layers. They lose legibility.
 
-The goal is not minimalism or anti-abstraction.
-The goal is legibility.
+**Consequence:** Illegibility causes systemic fragility. When understanding collapses, change becomes dangerous, coordination slows, and authority centralizes. An illegible system concentrates dependency; a legible system distributes capability.
+
+**Hypothesis:** Systems that prioritize and preserve legibility remain adaptable, participatory, and resilient over time. 
+
+**Goal:** We must optimize for preserving legibility under continuous transformation.
+
+**Mechanism:** We achieve this through *Semantic Continuity*—ensuring meaning survives across execution layers, transformations, and time.
 
 ## Core Concepts
 
 | Concept | Meaning |
 |---|---|
-| **Semantic Continuity** | Meaning survives across transformations, execution layers, and time. |
-| **Legible Systems** | Systems remain inspectable, understandable, and locally reasoned about. |
+| **System Legibility (The Goal)** | Systems remain inspectable, understandable, and locally reasoned about. |
+| **Semantic Continuity (The Mechanism)**| Meaning survives across transformations, execution layers, and time. |
 | **Progressive Materialization** | Systems progressively gain capability without losing coherence. |
 | **Behavioral Locality** | Behavior stays near the structure it affects. |
 | **Semantic Recoverability** | Artifacts and outputs preserve enough meaning to recover intent. |
@@ -38,16 +38,9 @@ A system should remain coherent:
 - during enhancement,
 - and after enhancement.
 
-Capabilities such as:
-- interactivity,
-- synchronization,
-- personalization,
-- intelligence,
-- and collaboration
+Capabilities such as interactivity, synchronization, personalization, intelligence, and collaboration should progressively emerge from an already meaningful substrate rather than replace it.
 
-...should progressively emerge from an already meaningful substrate rather than replace it.
-
-## Legible Systems
+## Legible Systems in Practice
 
 A legible system preserves:
 - inspectable structure,
@@ -64,35 +57,20 @@ This applies beyond the web:
 - collaborative tooling,
 - and organizational systems.
 
-The web simply serves as an especially powerful proving ground because it naturally provides:
-- materialized documents,
-- semantic structure,
-- open protocols,
-- progressive capability layers,
-- and shared cognition.
-
-We refer to this web-oriented manifestation as **The Material Web**.
+The web simply serves as an especially powerful proving ground because it naturally provides materialized documents, semantic structure, open protocols, progressive capability layers, and shared cognition. We refer to this web-oriented manifestation as **The Material Web**.
 
 ## Semantic Tooling & Architectural Observability
 
 This repository explores operational tooling for evaluating semantic system health.
 
-Instead of focusing only on:
-- syntax,
-- types,
-- performance,
-- or bundle size,
-
-...semantic tooling evaluates:
+Instead of focusing only on syntax, types, performance, or bundle size, semantic tooling evaluates:
 - continuity,
 - legibility,
 - locality,
 - recoverability,
 - and structural entropy.
 
-The goal is not rigid enforcement.
-
-The goal is guided evolution: helping systems gradually become more legible and less semantically fragmented over time.
+The goal is not rigid enforcement. The goal is guided evolution: helping systems gradually become more legible and less semantically fragmented over time.
 
 ## Architectural Tendencies
 
