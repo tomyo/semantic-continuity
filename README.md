@@ -38,7 +38,7 @@ Instead of focusing on syntax or bundle size, our operational tooling evaluates 
 - **Semantic Recoverability:** Do generated artifacts preserve enough meaning to recover intent?
 - **Progressive Materialization:** Does the system gain capability without losing coherence?
 
-_To see this in action, explore the [Semantic Evaluator](./skills/semantic-evaluator/SKILL.md) skill located in the analysis tooling._
+*To see this in action, explore the [Semantic Evaluator](./skills/semantic-evaluator/SKILL.md) skill located in the analysis tooling. (You can copy and paste the contents of this file into the custom instructions of Cursor, Copilot, or ChatGPT to instantly turn any AI into a Semantic Architecture Critic).*
 
 ---
 

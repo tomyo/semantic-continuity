@@ -25,11 +25,13 @@ Identify the transition from latent source to observable structure.
 *   *Rust/Backend:* Expanded macros (`cargo expand`), public API surface, or compiled trait/contract implementations.
 *   **Rule:** If abstraction hides the final output, use your `bash` tool to run the build step or compile the file to observe what the system *actually* produces before scoring.
 
-## 2. Autonomous Context Gathering
+## 2. Tool Capabilities & Autonomous Context Gathering
 
-You are an active agent. If you lack the broader context to accurately score code (e.g., you see an imported global store, an opaque wrapper, or need to know how a struct is consumed):
+First, identify your own tool capabilities and adapt your context-gathering strategy. If you lack the broader context to accurately score code (e.g., you see an imported global store, an opaque wrapper, or need to know how a struct is consumed):
 1. **Do not guess or hallucinate.**
-2. Use `bash` (e.g., `rg`, `find`) or `read` to autonomously search the codebase, check consumers, or read imported files.
+2. **If you have terminal/execution access (e.g., Pi, Claude Engineer):** Use your bash tools (like `rg` or `find`) to autonomously search the codebase, check consumers, compile code, or read imported files.
+3. **If you have codebase search (e.g., Cursor, Copilot):** Actively trigger searches for consumers, global states, or imported wrappers to gather context before judging a local file.
+4. **If you are chat-only (e.g., ChatGPT Web):** Explicitly ask the user to provide the compiled output, rendered DOM, or related imported files if an abstraction obscures the final result.
 
 ## 3. Systemic Entropy Tripwires (Anti-Patterns)
 
