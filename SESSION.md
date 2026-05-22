@@ -11,9 +11,11 @@ This repository explores the systems philosophy of **Semantic Continuity** and *
 3. **Semantic Continuity:** The mechanism to achieve legibility. Meaning must survive across source, transformations, execution layers, and time. 
 4. **Architectural Derivations:** Properties like behavioral locality, progressive enhancement, explicit structure, and reversible transformations are *derived consequences* of trying to preserve Reasoning Scope, rather than aesthetic preferences.
 5. **The Web as a Proving Ground:** The web ("The Material Web") is used as the primary operational substrate because it accidentally evolved many continuity-preserving properties (inspectable DOM, progressive capability layers, semantic structure).
+6. **Ontological Decoupling:** Semantic Continuity (the theory) is strictly decoupled from its implementations. This prevents the philosophy from collapsing into a single software tool, establishing a 4-layer taxonomy: Theory -> Protocols (Skills) -> Runtime (e.g., Epistemic Machine) -> Domain Modules.
 
 ## Current State
 * **Pivot Complete:** The project has successfully evolved from a "frontend architecture methodology (WPM)" into a generalized "Systems Theory for the AI Era."
+* **Taxonomy Alignment:** Formalized the distinction between Semantic Continuity (Theory) and the Epistemic Machine (Infrastructure). Elevated `skills/` to represent "Portable Cognitive Protocols" that constrain agent cognition.
 * **Documentation Overhauled:**
   * Created foundational essays: `/philosophy/software-after-the-cost-collapse.md` and `/philosophy/the-legibility-hypothesis.md`.
   * Restructured `README.md` to serve as an entry hub instead of a manifesto.

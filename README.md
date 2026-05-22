@@ -12,19 +12,25 @@ We are entering a new phase of software development where generation is cheap, b
 
 ---
 
-## The Operational Repository
+## The 4-Layer Architecture
 
-This repository serves as the operational hub for exploring, testing, and measuring Semantic Continuity in practice. While the philosophy applies universally (from organizational structures to AI-agent networks), **The Web** serves as a proving ground due to its native continuity-preserving properties.
+Semantic Continuity is the conceptual physics of system legibility. To prevent the theory from collapsing into a specific software implementation, we explicitly separate the ecosystem into four ontological layers:
+
+1. **Theory & Philosophy (`/philosophy`):** The core principles, physics, and hypotheses of continuity. Substrate-agnostic (applies to code, organizations, AI networks).
+2. **Protocols & Skills (`/skills`):** Portable cognitive governance. Machine-readable constraints (like the `semantic-evaluator`) that inoculate foreign agents with continuity-preserving behaviors.
+3. **Reference Implementations (Runtimes):** Operating environments designed to natively embody these physics. The primary sibling project is the **Epistemic Machine**, which engineers a POSIX/Git runtime built entirely on event-sourced cognition and semantic continuity.
+4. **Domain Modules:** Specific implementations for bounded environments (e.g., modern web architecture, CI/CD, governance).
 
 ### What's Inside
 
-| Directory       | Purpose                                                                        |
-| --------------- | ------------------------------------------------------------------------------ |
-| `/philosophy`   | The core essays, theses, and conceptual frameworks.                            |
-| `/patterns`     | Architectural patterns, examples, and the "Material Web" implementation guide. |
-| `/analysis`     | Operational tooling, including the Pi AI `semantic-evaluator` skill.           |
-| `/case-studies` | Concrete examples of continuity preserved vs. continuity collapsed.            |
-| `/experiments`  | Exploratory prototypes and proof-of-concept implementations.                   |
+| Directory       | Purpose                                                                        | Layer Focus |
+| --------------- | ------------------------------------------------------------------------------ | ----------- |
+| `/philosophy`   | The core essays, theses, and conceptual frameworks.                            | Theory      |
+| `/skills`       | Portable cognitive governance and behavioral invariants for agents.            | Protocols   |
+| `/patterns`     | Architectural patterns, examples, and the "Material Web" implementation guide. | Domain      |
+| `/analysis`     | Operational tooling and legacy evaluation harnesses.                           | Domain      |
+| `/case-studies` | Concrete examples of continuity preserved vs. continuity collapsed.            | Theory      |
+| `/experiments`  | Exploratory prototypes and proof-of-concept implementations.                   | Runtime     |
 
 ---
 
