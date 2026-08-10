@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WPM - Example</title>
+    <title>Semantic Continuity - Web Example</title>
 
     <link rel="stylesheet" href="./components/site-header/site-header.css" />
     <link rel="stylesheet" href="./components/site-footer/site-footer.css" />
@@ -37,11 +37,11 @@
     <site-header>
       <header part="container">
         <div part="logo">
-          <a href="/">Progressive Materialization</a>
+          <a href="./index.html">Semantic Continuity</a>
         </div>
         <nav part="nav">
-          <a href="/docs">Docs</a>
-          <a href="/about">About</a>
+          <a href="../philosophy/heuristics-and-examples.md">Heuristics</a>
+          <a href="./about.html">About</a>
           <button part="mobile-menu-toggle" aria-expanded="false" hidden>
             Menu
           </button>
@@ -53,7 +53,7 @@
       <article-preview>
         <article part="container">
           <header part="header">
-            <h1 part="title">Welcome to the Native Web</h1>
+            <h1 part="title">A Web-Specific Continuity Example</h1>
           </header>
           
           <div part="content">
@@ -61,13 +61,18 @@
             <!-- The materializer injects children into slots rather than opaque templates -->
             <slot name="body">
               <p>
-                This page demonstrates <strong>Web Progressive Materialization (WPM)</strong>.
+                This page demonstrates progressive materialization as one
+                <strong>conditional web strategy</strong> for semantic continuity.
               </p>
               <p>
-                Notice how we use explicit <code>slot</code> elements as composition boundaries and <code>part="..."</code> as our semantic contract for CSS and JS.
+                The document remains inspectable before optional enhancement. Local
+                <code>part="..."</code> markers connect structure, CSS, and JavaScript;
+                the <code>slot</code> is an explicit authoring marker in this light-DOM example.
               </p>
               <p>
-                This ensures structural components remain completely stateless DOM transformers, pushing UI logic onto native event delegation and HTML attributes.
+                UI state remains visible through HTML attributes. This reduces accidental
+                context for these components without claiming that every responsibility
+                should be local or every system can provide a static baseline.
               </p>
             </slot>
           </div>
@@ -79,7 +84,7 @@
     <site-footer>
       <footer part="container">
         <div part="content">
-          <p>&copy; 2026 Web Progressive Materialization.</p>
+          <p>&copy; 2026 Semantic Continuity web example.</p>
           <div part="social-links">
             <a href="#">GitHub</a>
             <a href="#">Twitter</a>
@@ -90,7 +95,7 @@
     </site-footer>
 
     <!-- Enhancement Layer (Runtime Phase) -->
-    <!-- URLs here are resolved into final coherent document semantics by the materializer -->
+    <!-- This build-less example uses local relative imports directly. -->
     <script type="module">
       import { enhanceSiteHeader } from "./components/site-header/enhance.js";
       import { enhanceSiteFooter } from "./components/site-footer/enhance.js";

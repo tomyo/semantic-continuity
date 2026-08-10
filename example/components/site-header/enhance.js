@@ -23,5 +23,4 @@ export function enhanceSiteHeader(element) {
     // but here we toggle the state natively.
   });
 
-  console.log('Site Header enhanced: Stateless event delegation active.');
 }

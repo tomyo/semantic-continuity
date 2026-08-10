@@ -1,27 +1,42 @@
-# Web Progressive Materialization - Example
+# Web Progressive Materialization Example
 
-This directory contains a minimal, build-less demonstration of the core WPM principles.
+This directory is a build-less, web-specific example of several continuity-preserving strategies. It is not the general Semantic Continuity architecture.
 
-## 1. HTML First & Materialized Documents
-The `index.html` file represents a **materialized document**. It is fully valid, portable, and meaningful HTML. It requires no JavaScript framework to render, meaning it is functional immediately upon load and accessible to all search engines and LLMs.
+## What It Demonstrates
 
-## 2. Stateless DOM Transformers (Event Delegation)
-Take a look at `components/site-header/enhance.js`. Instead of binding specific event listeners to specific elements, it attaches a single listener using event delegation. 
+### Inspectable Baseline Structure
 
-It also does not maintain an internal `isExpanded` variable. Instead, the UI state is pushed strictly to the DOM (`aria-expanded="..."`). The CSS (`site-header.css`) relies entirely on this HTML state to drive layout changes using modern selectors like `:has()`.
+`index.html` contains meaningful document structure before optional JavaScript enhancement. A browser, reviewer, or tool can inspect the header, article, navigation, and footer directly.
 
-## 3. Explicit Composition Boundaries (Slots)
-In `index.html`, notice how `<article-preview>` uses a `<slot name="body">`. Composition and nesting should happen through explicit structural insertion points (Slots), rather than arbitrary strings or opaque JavaScript children hierarchies.
+This is a domain advantage of HTML, not proof that every system can or should provide a static baseline.
 
-## 4. URL & Resource Semantics
-In `index.html` and `about.html`, resources are referenced via relative paths (e.g., `<link href="./components/... " />` and `import { ... } from "./components/..."`). 
+### Visible UI State
 
-- **During Authoring:** Components refer to their dependencies using file-system relative paths (preserving provenance and locality).
-- **During Materialization:** The materializer normalizes these URLs against the final document (preventing the need for global `<base>` overrides or broken fragmented paths). 
-- **In this example:** `index.html` already acts as the finalized document, demonstrating coherent, standardized URL semantics.
+`components/site-header/enhance.js` uses `aria-expanded` as inspectable UI state rather than maintaining a second private boolean. CSS and JavaScript can refer to the same state marker.
 
-## 5. Script Naming Conventions
-To keep intent clear across component types, we enforce the following naming convention:
+The example does not demonstrate a complete responsive menu: it is intentionally small and should not be treated as production accessibility evidence.
 
-- **`[component-name]/enhance.js` (Enhanced Components):** These scripts export a function designed to run against pre-materialized HTML. They provide event delegation and state changes without registering a custom element lifecycle. (See: `site-header` and `site-footer`).
-- **`[component-name]/[component-name].js` (Autonomous Components):** When a script perfectly matches the component name, it signifies the definition of a formal Custom Element (`customElements.define`). These components own their internal runtime UI. (See: `live-chat`).
+### Local Enhancement Boundaries
+
+Header and footer enhancement functions receive the element they affect. This keeps their interaction behavior near the rendered structure.
+
+The `delete`, authorization, transaction, and other cross-cutting examples discussed elsewhere would require explicit non-local contracts; locality is not automatic correctness.
+
+### Explicit Composition Markers
+
+The example uses `slot` and `part` attributes as visible composition and styling markers. In ordinary light DOM, these attributes are conventions unless a materializer or custom-element boundary gives them additional behavior.
+
+### Relative Resource Provenance
+
+Local relative imports keep authoring dependencies discoverable. A real materialization pipeline would need to demonstrate how it resolves URLs and preserves source-to-output provenance; this repository does not currently include that pipeline.
+
+## Component Naming Convention
+
+- `[component]/enhance.js`: exports optional behavior for existing structure.
+- `[component]/[component].js`: defines an autonomous custom element that owns runtime-created UI.
+
+This convention is local project guidance, not a universal web standard.
+
+## Evaluation Boundary
+
+The example is useful for inspecting source and basic browser behavior. It does not yet provide automated accessibility tests, failure-mode tests, generated-output provenance, or comparative evidence against another architecture.

@@ -2,73 +2,69 @@
 
 Software development is entering a new phase.
 
-For decades, the primary cost of software was creation.
+For decades, producing and modifying code was expensive. Many architectural practices therefore optimized for production: reuse, abstraction, automation, encapsulation, and scalability of generation.
 
-Writing code was expensive. Modifying systems was expensive. Distributing capability was expensive. Most architectural practices emerged under these constraints, optimizing for the production of software:
-- reuse,
-- abstraction,
-- encapsulation,
-- automation,
-- and scalability of generation.
+AI changes that cost structure. Systems can now generate components, migrations, interfaces, tests, and entire application layers in minutes.
 
-But the economics of software are changing.
+**Understanding has not become equally cheap.**
 
-AI systems can now generate components, refactor architectures, scaffold applications, rewrite interfaces, and synthesize entire layers of code in seconds. Creation is becoming cheap.
+Long-lived systems still accumulate:
 
-**Understanding is not.**
+- behavior whose causes are distributed across layers;
+- contracts visible only through tribal knowledge;
+- generated artifacts that obscure their source;
+- tests that encode decisions without explaining their scope;
+- errors and uncertainty flattened into apparently settled state;
+- handoffs that preserve conclusions while losing why they were conditional;
+- changes that work locally but silently alter distant responsibilities.
 
-Anyone who has worked on a long-lived system has felt this tension:
-- the fear of changing code without fully understanding its consequences,
-- the need to reconstruct invisible context before making a modification,
-- the sense that a system only functions through accumulated tribal knowledge,
-- the experience of fixing something without confidence that it will remain fixed.
+The bottleneck is increasingly the ability to reconstruct enough of a system to act safely.
 
-The bottleneck is no longer producing software.
+AI did not create this problem. It made the imbalance visible. Generation can now increase complexity faster than humans and agents can inspect, interpret, and stabilize it.
 
-The bottleneck is reasoning about it.
+## A Different Optimization Target
 
-This changes what good architecture means.
+Good architecture cannot be reduced to producing capability quickly. It must also preserve the conditions under which future participants can:
 
-A system that can evolve safely is not merely one that can generate capability quickly, but one that remains understandable as it changes. One where behavior can be locally reasoned about. One where intent can be recovered. One where meaning survives transformation.
+- identify the responsibility at stake;
+- inspect what the system actually does;
+- distinguish evidence from interpretation and authority;
+- recover relevant uncertainty and failure behavior;
+- predict the consequences of a change;
+- correct prior decisions without reconstructing hidden history.
 
-Modern AI systems make this especially visible.
+This is the motivation for **semantic continuity**.
 
-Large language models consistently perform better when context is:
-- focused,
-- explicit,
-- semantically coherent,
-- and locally sufficient for reasoning.
+Semantic continuity does not mean keeping every representation unchanged or storing every historical detail. It concerns whether what matters for a future task remains recoverable across a transformation or discontinuity.
 
-Hidden dependencies, fragmented context, opaque transformations, and excessive indirection degrade outcomes. The same conditions that make systems difficult for humans to understand also make them difficult for AI systems to reliably evolve.
+Examples include:
 
-AI did not create the comprehension problem. It exposed it.
+- source code transformed into a deployed service;
+- a local module connected to a system-wide policy;
+- a decision handed from one contributor or agent to another;
+- a migration replacing one representation with another;
+- a partially failed system attempting recovery;
+- a project resuming after its original context is gone.
 
-This suggests a different architectural optimization target:
-not minimizing the cost of generating software, but minimizing the cost of understanding and safely evolving it over time.
+The relevant meaning is not only the happy-path behavior. It may include provenance, uncertainty, error semantics, authority, invariants, and the reason a boundary exists.
 
-This repository explores that direction.
+## Legibility Under Conditions
 
-The central hypothesis is that systems remain adaptable, collaborative, and resilient when they preserve semantic continuity: when meaning survives across transformations, execution layers, contributors, and time.
+A system is not legible in the abstract. It is legible enough **for a particular successor, task, and evidence condition**.
 
-From this perspective, many architectural properties emerge naturally:
-- locality over hidden orchestration,
-- inspectable artifacts over opaque pipelines,
-- progressive enhancement over replacement,
-- reversible transformations over irreversible compilation,
-- semantic structure over incidental complexity.
+A local file may be sufficient for changing copy but insufficient for changing authorization policy. A generated page may reveal user-visible behavior while hiding the decision that produced it. A test may preserve a contract while erasing whether that contract is still authorized.
 
-These ideas apply broadly to software systems, collaborative systems, AI-native systems, organizational systems, and shared knowledge systems.
+This means there is no universal preference for local over global, source over output, or native primitive over abstraction. These are engineering strategies whose value depends on the responsibility being preserved.
 
-The web is an especially powerful environment for exploring them because it accidentally evolved many continuity-preserving properties:
-- materialized documents,
-- inspectable outputs,
-- open protocols,
-- progressive capability layers,
-- semantic structure,
-- and addressable shared knowledge.
+Commonly useful strategies include:
 
-A web document can often remain partially understandable, recoverable, and functional even under incomplete execution or partial failure. Many modern systems lose these properties as abstraction layers and orchestration complexity increase.
+- explicit and inspectable contracts;
+- shallow, justified transformations;
+- traceable generated artifacts;
+- visible errors and uncertainty;
+- graceful degradation;
+- behavior located near its owning boundary;
+- centralized enforcement for genuinely cross-cutting invariants;
+- minimal persistent state introduced only when a discontinuity requires it.
 
-This project explores what happens when we intentionally optimize for continuity-preserving systems: systems designed to remain understandable, recoverable, and evolvable under continuous transformation.
-
-Not as nostalgia for simpler software, and not as rejection of abstraction, but as a response to a world where generation accelerates faster than comprehension.
+The project investigates how these strategies affect safe evolution after creation becomes cheap. Its aim is not nostalgia for simpler software or rejection of frameworks. It is to keep accelerated creation from outrunning the ability to understand, contest, and correct what has been built.

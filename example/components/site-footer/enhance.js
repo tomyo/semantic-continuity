@@ -18,5 +18,4 @@ export function enhanceSiteFooter(element) {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-  console.log('Site Footer enhanced: Stateless event delegation active.');
 }

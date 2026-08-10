@@ -20,16 +20,16 @@ export class LiveChat extends HTMLElement {
           <div part="messages">
             <p><strong>Agent:</strong> Hello! How can I help you?</p>
           </div>
-          <input type="text" part="input" placeholder="Type a message..." />
+          <input type="text" part="input" aria-label="Chat message" placeholder="Type a message..." />
         </div>
       `;
     }
 
-    // Stateless event delegation
-    this.addEventListener('click', this.handleClick.bind(this));
+    // A stable EventListener object avoids duplicate handlers after reconnection.
+    this.addEventListener('click', this);
   }
 
-  handleClick(event) {
+  handleEvent(event) {
     const toggleBtn = event.target.closest('[part="toggle-btn"]');
     if (!toggleBtn) return;
 

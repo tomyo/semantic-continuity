@@ -1,125 +1,138 @@
 # Pattern 01: Behavioral Locality
 
-**Goal:** Shrink the *Reasoning Scope* by keeping behavior, state, and structure structurally colocated.
+**Intent:** Keep behavior near the boundary that owns it so a named change requires less accidental context.
 
-## The Concept
+**Status:** Conditional engineering pattern, not a universal architecture rule.
 
-**Behavioral Locality** is the principle that the behavior of a system should emerge locally from the structure it affects, rather than being managed by a distant, global orchestrator. 
+## Context
 
-When behavior is local, the **Reasoning Scope** is small: a developer or AI agent only needs to read a single file or a localized block of code to understand, debug, or modify a feature. When behavior is non-local, the reasoning scope expands to encompass the entire system, concentrating dependency and accelerating systemic entropy.
+Use this pattern when:
 
-To demonstrate this, let's look at a universally understood feature: **A Modal Dialog**.
+- one component or module owns the relevant state and behavior;
+- callers can interact through a visible contract;
+- moving behavior closer does not duplicate a shared invariant;
+- the materialized or runtime boundary can expose meaningful state.
 
----
+Do not apply it mechanically when correctness depends on centralized authorization, transactionality, scheduling, observability, or another genuinely cross-cutting responsibility.
 
-## ❌ High-Entropy Architecture: The Global Orchestrator
+## Problem
 
-In modern application development, a common pattern is to abstract UI state into a global orchestrator. This optimizes for "developer velocity" (you can trigger a modal from anywhere) but destroys legibility.
+A local feature can require tracing opaque events through global state, registries, dispatchers, and root coordinators. This expands reasoning scope and hides the relationship between a trigger and its effect.
 
-### The Code
+The failure is not “global state exists.” It is that the non-local path is accidental, weakly typed, or undiscoverable from the local boundary.
+
+## High-Risk Example: Opaque Global Modal Routing
 
 ```javascript
-// 1. The Global Store (store.js)
-// State is lifted out of the DOM into a parallel, hidden runtime object.
-const modalState = { 
-    isOpen: false, 
-    modalType: null, 
-    modalData: null 
+// store.js
+const modalState = {
+  isOpen: false,
+  modalType: null,
+  modalData: null,
 };
 
-// 2. The Trigger (UserProfile.jsx)
-// A button dispatches an opaque event. The structural result is invisible here.
+// UserProfile.jsx
 function UserProfile({ userId }) {
-    return (
-        <button onClick={() => dispatch(openModal('DELETE_USER', { id: userId }))}>
-            Delete User
-        </button>
-    );
+  return (
+    <button onClick={() => dispatch(openModal("DELETE_USER", { id: userId }))}>
+      Delete User
+    </button>
+  );
 }
 
-// 3. The Orchestrator (App.jsx - Root of the App)
-// A heavy switch-statement that listens to global state to render the actual structure.
+// App.jsx
 function GlobalModalRoot() {
-    const { isOpen, modalType, modalData } = useSelector(state => state.modal);
-    
-    if (!isOpen) return null;
-    
-    switch (modalType) {
-        case 'DELETE_USER':
-            return <DeleteUserModal userId={modalData.id} />;
-        // ... 50 other modal types
-    }
+  const { isOpen, modalType, modalData } = useSelector((state) => state.modal);
+  if (!isOpen) return null;
+
+  switch (modalType) {
+    case "DELETE_USER":
+      return <DeleteUserModal userId={modalData.id} />;
+    default:
+      return null;
+  }
 }
 ```
 
-### Why this fails the Legibility Hypothesis:
-* **Expanded Reasoning Scope (Spooky Action at a Distance):** If an AI or junior developer wants to change what happens when "Delete User" is clicked, they cannot just look at `UserProfile.jsx`. They must track the string `'DELETE_USER'` through the `dispatch`, into the global `store`, up to the `GlobalModalRoot`, and finally into `DeleteUserModal`. 
-* **Semantic Erasure:** The `UserProfile` component has no semantic relationship with its modal. Looking at the materialized output, the button and the modal will be rendered in completely different parts of the DOM.
-* **Concentrated Dependency:** You cannot safely test or modify `UserProfile` without also mocking or importing the global modal orchestrator. 
+### Continuity Risks
 
----
+- The trigger does not expose which rendered structure it controls.
+- The string event carries weaker semantics than an explicit contract.
+- The state, rendering, and initiating context are separated by multiple transformations.
+- A maintainer must discover the store and root coordinator before predicting behavior.
+- An unknown modal type silently becomes no output in this example.
 
-## ✅ Legible Architecture: Semantic Continuity & Colocation
+A global coordinator may still be justified—for example, to enforce one focus stack or render into a top-level portal. If so, preserve an explicit typed request contract, ownership boundary, and visible failure behavior rather than merely moving everything local.
 
-If we optimize for **System Legibility**, we use Progressive Materialization. We keep the trigger and the resulting structure colocated, using platform-native semantic boundaries.
-
-### The Code
+## Local Alternative
 
 ```html
-<!-- UserProfile.html (or equivalent component file) -->
-<!-- The materialized structure IS the source of truth -->
+<section class="user-profile" data-user-id="42">
+  <button type="button" aria-controls="delete-dialog-42">
+    Delete user
+  </button>
 
-<div class="user-profile" data-user-id="42">
-    <!-- 1. The Trigger -->
-    <!-- Semantically linked directly to the structure it controls -->
-    <button aria-controls="delete-modal-42" class="modal-trigger">
-        Delete User
-    </button>
-
-    <!-- 2. The Structure -->
-    <!-- Native platform primitive, colocated with its trigger -->
-    <dialog id="delete-modal-42" class="local-modal">
-        <form method="dialog">
-            <h2>Delete User?</h2>
-            <p>This action cannot be undone.</p>
-            <button value="cancel">Cancel</button>
-            <button value="confirm" class="danger">Yes, Delete</button>
-        </form>
-    </dialog>
-</div>
+  <dialog id="delete-dialog-42">
+    <form method="dialog">
+      <h2>Delete user?</h2>
+      <p>This action cannot be undone.</p>
+      <button value="cancel">Cancel</button>
+      <button value="confirm">Yes, delete</button>
+    </form>
+  </dialog>
+</section>
 ```
 
 ```javascript
-// UserProfile.js
-// Behavior emerges locally from the structure it affects.
-const profile = document.querySelector('.user-profile[data-user-id="42"]');
-const trigger = profile.querySelector('.modal-trigger');
-const dialog = profile.querySelector('dialog');
+export function enhanceUserProfile(profile, { deleteUser }) {
+  const trigger = profile.querySelector('[aria-controls="delete-dialog-42"]');
+  const dialog = profile.querySelector("dialog");
 
-// Localized state: The DOM naturally handles open/close states.
-trigger.addEventListener('click', () => dialog.showModal());
+  if (!trigger || !dialog) {
+    throw new Error("User profile delete controls are incomplete");
+  }
 
-dialog.addEventListener('close', () => {
-    if (dialog.returnValue === 'confirm') {
-        // Execute local deletion logic
-        fetch(`/api/users/42`, { method: 'DELETE' });
+  trigger.addEventListener("click", () => dialog.showModal());
+
+  dialog.addEventListener("close", async () => {
+    if (dialog.returnValue === "confirm") {
+      await deleteUser(profile.dataset.userId);
     }
-});
+  });
+}
 ```
 
-### Why this succeeds:
-* **Shrunk Reasoning Scope:** If an AI or human needs to modify the delete flow, **100% of the context exists in one place**. You do not need to understand the rest of the application to change this feature.
-* **Distributed Agency:** This component can be copy-pasted, moved, or deleted safely without breaking a global orchestrator. Anyone can modify it safely.
-* **Platform Alignment:** By using `<dialog>` and `<form method="dialog">`, the state (`isOpen`) is handled natively by the browser. There is no parallel, hidden JavaScript state tree to maintain.
-* **Progressive Materialization:** Even before the JavaScript loads, the structure of the modal is present and semantic in the DOM, ready to be inspected or progressively enhanced.
+### What This Preserves
 
----
+- The trigger-to-dialog relationship is visible through `aria-controls`.
+- Dialog state uses a platform contract that tools and users can inspect.
+- Missing required structure fails explicitly.
+- Deletion remains an injected domain responsibility rather than being hidden in DOM code.
+- A maintainer can understand the interaction locally while following one explicit dependency for the destructive operation.
 
-## The Shift
+## Important Limits
 
-| Dimension | Illegible Architecture | Legible Architecture |
-|---|---|---|
-| **State Location** | Lifted into a global, hidden runtime orchestrator. | Colocated natively on the target structure (`<dialog>`). |
-| **Reasoning Scope** | Global (must understand dispatch, store, and root). | Local (everything is adjacent). |
-| **AI Modification Risk**| High. The AI might break the global orchestrator. | Low. Changes are completely isolated. |
-| **Materialized Output** | Disconnected. Trigger and Modal are far apart in DOM. | Continuous. Trigger and Modal are grouped meaningfully. |
+The local example is not complete production deletion behavior. It still needs decisions about:
+
+- authorization and server-side enforcement;
+- request failure and retry UI;
+- duplicate submissions;
+- stale user identity;
+- focus and accessibility testing;
+- whether multiple dialogs require shared coordination.
+
+These are legitimate reasons for the reasoning scope to cross the component boundary. The pattern asks that each crossing correspond to an explicit responsibility.
+
+## Review Checklist
+
+- Which boundary owns the behavior?
+- Which context is local, and which cross-cutting context is justified?
+- Can a maintainer discover dependencies from the local surface?
+- Are state and transitions inspectable?
+- Are errors explicit rather than converted to absence?
+- Does colocation duplicate policy or create inconsistent implementations?
+- Can the component be corrected without changing unrelated consumers?
+
+## Result
+
+Behavioral locality improves semantic continuity when it removes accidental traversal while preserving explicit links to real shared responsibilities. It becomes localism when it hides, duplicates, or weakens those responsibilities.

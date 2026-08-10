@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>WPM - About & Custom Elements</title>
+    <title>Semantic Continuity - Web Strategy Notes</title>
 
     <link rel="stylesheet" href="./components/site-header/site-header.css" />
     <link rel="stylesheet" href="./components/site-footer/site-footer.css" />
@@ -38,11 +38,11 @@
     <site-header>
       <header part="container">
         <div part="logo">
-          <a href="/">Progressive Materialization</a>
+          <a href="./index.html">Semantic Continuity</a>
         </div>
         <nav part="nav">
-          <a href="/index.html">Home</a>
-          <a href="/about.html">About</a>
+          <a href="./index.html">Home</a>
+          <a href="./about.html">About</a>
           <button part="mobile-menu-toggle" aria-expanded="false" hidden>
             Menu
           </button>
@@ -54,24 +54,31 @@
       <article-preview>
         <article part="container">
           <header part="header">
-            <h1 part="title">About Custom Elements in WPM</h1>
+            <h1 part="title">About This Web Strategy</h1>
           </header>
           
           <div part="content">
             <slot name="body">
               <p>
-                In the Web Progressive Materialization architecture, we distinguish between <strong>Enhanced Components</strong> and <strong>Autonomous Components</strong>.
+                This example distinguishes between <strong>enhanced structures</strong>
+                and <strong>runtime-owned custom elements</strong>. This is a local project
+                convention, not a universal component ontology.
               </p>
               <ul>
                 <li>
-                  <strong>Enhanced Components</strong> (`enhance.js`): Provide progressive behavior on top of materialized HTML. They use stateless event delegation and do not require registering a Custom Element.
+                  <strong>Enhanced structures</strong> (<code>enhance.js</code>) attach
+                  optional behavior to HTML that already exists and remains inspectable.
                 </li>
                 <li>
-                  <strong>Autonomous Components</strong> (`component-name.js`): Fully encapsulate their logic and markup. They use `customElements.define` because they generate or manage runtime-owned UI.
+                  <strong>Runtime-owned custom elements</strong>
+                  (<code>component-name.js</code>) use <code>customElements.define</code>
+                  when the component must create or manage runtime UI.
                 </li>
               </ul>
               <p>
-                Look at the bottom right corner of this page. The <code>&lt;live-chat&gt;</code> widget is an example of an Autonomous Component.
+                The <code>&lt;live-chat&gt;</code> widget is deliberately runtime-dependent.
+                Its continuity requirement is explicit ownership and failure behavior,
+                not a claim that it has the same static baseline as the document content.
               </p>
             </slot>
           </div>
@@ -83,7 +90,7 @@
     <site-footer>
       <footer part="container">
         <div part="content">
-          <p>&copy; 2026 Web Progressive Materialization.</p>
+          <p>&copy; 2026 Semantic Continuity web example.</p>
           <div part="social-links">
             <a href="#">GitHub</a>
             <a href="#">Twitter</a>

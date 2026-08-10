@@ -1,28 +1,45 @@
-# Session Memory: Semantic Continuity for Legible Systems
+# Session Handoff: Semantic Continuity for Legible Systems
 
-## Project Overview
-This repository explores the systems philosophy of **Semantic Continuity** and **Legible Systems**. It serves as an operational hub and research direction for building software that remains understandable, recoverable, and collaboratively evolvable after the cost collapse of creation.
+## Current Direction
 
-**Tagline:** *Preserving meaning under continuous transformation.*
+The project has been revised using accumulated Continuity Lab knowledge.
 
-## Core Philosophy & Key Decisions
-1. **The Comprehension Bottleneck:** AI has made generating code cheap, but understanding it remains expensive. Optimization must shift from "developer velocity" to "constrained reasoning scope."
-2. **System Legibility:** The primary architectural goal. Systems must remain inspectable, locally inferable, and structurally understandable to distribute agency (so any agent, human or AI, can safely modify them).
-3. **Semantic Continuity:** The mechanism to achieve legibility. Meaning must survive across source, transformations, execution layers, and time. 
-4. **Architectural Derivations:** Properties like behavioral locality, progressive enhancement, explicit structure, and reversible transformations are *derived consequences* of trying to preserve Reasoning Scope, rather than aesthetic preferences.
-5. **The Web as a Proving Ground:** The web ("The Material Web") is used as the primary operational substrate because it accidentally evolved many continuity-preserving properties (inspectable DOM, progressive capability layers, semantic structure).
-6. **Ontological Decoupling:** Semantic Continuity (the theory) is strictly decoupled from its implementations. This prevents the philosophy from collapsing into a single software tool, establishing a 4-layer taxonomy: Theory -> Protocols (Skills) -> Runtime (e.g., Epistemic Machine) -> Domain Modules.
+The original intuition remains: cheap generation makes comprehension and safe evolution the bottleneck. The theory is now narrower and more operational:
 
-## Current State
-* **Pivot Complete:** The project has successfully evolved from a "frontend architecture methodology (WPM)" into a generalized "Systems Theory for the AI Era."
-* **Taxonomy Alignment:** Formalized the distinction between Semantic Continuity (Theory) and the Epistemic Machine (Infrastructure). Elevated `skills/` to represent "Portable Cognitive Protocols" that constrain agent cognition.
-* **Documentation Overhauled:**
-  * Created foundational essays: `/philosophy/software-after-the-cost-collapse.md` and `/philosophy/the-legibility-hypothesis.md`.
-  * Restructured `README.md` to serve as an entry hub instead of a manifesto.
-* **Semantic Evaluator Skill Updated:** The AI `semantic-evaluator` (now in `/skills/semantic-evaluator/SKILL.md`) has been aligned with the Legibility Hypothesis. It focuses on evaluating *Reasoning Scope*, *Systemic Entropy*, and *Agency Distribution* without auto-enforcing rules.
-* **Repository Architecture Setup:** Added structured directories for `/philosophy`, `/patterns`, `/analysis`, `/case-studies`, and `/experiments`.
+> Semantic continuity concerns whether responsibilities and distinctions remain reconstructable, auditable, usable, and corrigible for a situated successor across a named transformation or discontinuity.
 
-## Next Steps / Open Threads
-* **Populate `/patterns`:** Create concrete technical examples that contrast high-entropy/illegible architecture with low-entropy/continuous architecture.
-* **Test the Semantic Evaluator:** Point the newly refined `semantic-evaluator` tool at sample codebase snippets to verify its operational value as an architectural critic.
-* **Case Studies:** Document real-world examples where systems collapsed due to semantic fragmentation, and where progressive materialization preserved intent.
+## Important Corrections
+
+- Continuity is not invariant representation, permanence, or perfect retention.
+- Legibility and reasoning scope are relative to a task, observer, and information condition.
+- Materialized output is an evidence surface, not automatically the canonical semantic surface.
+- Behavioral locality and progressive materialization are conditional strategies, not universal derivations.
+- Repository layers and workflow labels are organizational aids, not ontology.
+- The Epistemic Machine is historical/candidate context, not an established reference implementation of this theory.
+- Uncertainty, provenance, errors, and authority boundaries are part of the semantics that transformations can erase.
+- Numeric review scores imply calibration the project does not currently possess.
+
+## Practical Skill
+
+`skills/semantic-evaluator/SKILL.md` now reviews a specific before/after transformation. It:
+
+- gathers direct evidence across relevant surfaces;
+- separates observations, interpretations, and unknowns;
+- evaluates responsibility, behavioral, uncertainty, provenance, authority, reasoning-scope, and failure continuity;
+- uses `preserved`, `at risk`, `broken`, `unknown`, or `not applicable` rather than 1–5 scores;
+- proposes incremental changes without editing unless implementation was explicitly requested.
+
+## Repository Status
+
+- `philosophy/the-legibility-hypothesis.md` is the main theory.
+- `philosophy/heuristics-and-examples.md` is the operational workflow.
+- `patterns/01-behavioral-locality.md` is a conditional pattern with explicit limits.
+- `example/` remains a web-specific proving example, not the universal model.
+
+## Open Research Questions
+
+- Which responsibilities require developmental experience rather than one-shot reconstruction?
+- How should continuity be tested across real, substantive discontinuities?
+- When does locality reduce reasoning scope, and when does it obscure shared invariants?
+- Which forms of provenance are sufficient for correction without full history?
+- How can continuity assessments be compared without hiding observer and task dependence?
